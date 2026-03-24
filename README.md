@@ -14,4 +14,4 @@ repos:
 
 Then run `pre-commit install -t commit-msg` and you're ready to go.
 
-If you don't want emojis to be auto appended, use the environment variable `CONVENTIONAL_COMMITS_PRECOMMIT_NOEMOJI=true`.
+If you want emojis to be auto appended, use the environment variable `CONVENTIONAL_COMMITS_PRECOMMIT_EMOJI=true`.
