@@ -43,10 +43,15 @@ def main():
     }
     pattern = r"({})(\([\w\-]+\))?!?:\s.*".format("|".join(emojies.keys()))
     filename = sys.argv[1]
-    ss = open(filename, "r").read()
+    with open(filename, "r") as f:
+        ss = f.read()
     header = next(
-        line for line in ss.splitlines() if line.strip() and not line.startswith("#")
+        (line for line in ss.splitlines() if line.strip() and not line.startswith("#")),
+        None,
     )
+    if header is None:
+        print("\nCommit message must not be empty.\n")
+        sys.exit(1)
     if re.match(pattern, header) is None:
         print(
             "\nCommit header `",
@@ -62,7 +67,9 @@ def main():
         if "BREAKING CHANGE" in ss and not commitPrefix.endswith("!"):
             commitPrefix = commitPrefix + "!"
         commitEmoji = ""
-        if os.getenv("CONVENTIONAL_COMMITS_PRECOMMIT_NOEMOJI", "false") != "true":
+        if os.getenv("CONVENTIONAL_COMMITS_PRECOMMIT_EMOJI", "false") == "true" or os.getenv(
+            "CONVENTIONAL_COMMITS_PRECOMMIT_NOEMOJI", "true"
+        ) == "false":
             if commitPrefix.endswith("!") and emojies["breaking"] not in header:
                 commitEmoji = commitEmoji + " " + emojies["breaking"]
             if "(" in commitPrefix:
