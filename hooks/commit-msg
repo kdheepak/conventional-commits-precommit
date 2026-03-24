@@ -43,7 +43,7 @@ def main():
     pattern = r"({})(\([\w\-]+\))?!?:\s.*".format("|".join(emojies.keys()))
     filename = sys.argv[1]
     ss = open(filename, "r").read()
-    header = [line for line in ss.splitlines() if not line.startswith("# ")][0]
+    header = next(line for line in ss.splitlines() if line.strip() and not line.startswith("#"))
     if re.match(pattern, header) is None:
         print("\nCommit header `", header, "` does not follow conventional commit specification.")
         print("\n", types)
