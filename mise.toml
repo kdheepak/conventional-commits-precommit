@@ -1,0 +1,11 @@
+[settings]
+env_shell_expand = true
+pipx.uvx = true # Enable pipx and uvx integration for Python package management
+
+[tools]
+uv = "latest"
+python = "latest"
+
+[tasks.test]
+description = "Run tests with uv and pytest"
+run = "uv run --with pytest pytest"
