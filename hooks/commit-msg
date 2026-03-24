@@ -22,6 +22,7 @@ types = """
 * 🔧 fixup            Fixup commit
 """
 
+
 def main():
     emojies = {
         "new": "🎉",
@@ -43,9 +44,15 @@ def main():
     pattern = r"({})(\([\w\-]+\))?!?:\s.*".format("|".join(emojies.keys()))
     filename = sys.argv[1]
     ss = open(filename, "r").read()
-    header = next(line for line in ss.splitlines() if line.strip() and not line.startswith("#"))
+    header = next(
+        line for line in ss.splitlines() if line.strip() and not line.startswith("#")
+    )
     if re.match(pattern, header) is None:
-        print("\nCommit header `", header, "` does not follow conventional commit specification.")
+        print(
+            "\nCommit header `",
+            header,
+            "` does not follow conventional commit specification.",
+        )
         print("\n", types)
         print("\nhttps://www.conventionalcommits.org/\n")
         sys.exit(1)
