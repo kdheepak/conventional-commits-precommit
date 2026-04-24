@@ -41,7 +41,7 @@ def main():
         "breaking": "💥",
         "wip": "🚧",
     }
-    pattern = r"({})(\([\w\-]+\))?!?:\s.*".format("|".join(emojies.keys()))
+    pattern = r"({})(\([\w.\-]+\))?!?:\s.*".format("|".join(emojies.keys()))
     filename = sys.argv[1]
     with open(filename, "r") as f:
         ss = f.read()
@@ -67,9 +67,10 @@ def main():
         if "BREAKING CHANGE" in ss and not commitPrefix.endswith("!"):
             commitPrefix = commitPrefix + "!"
         commitEmoji = ""
-        if os.getenv("CONVENTIONAL_COMMITS_PRECOMMIT_EMOJI", "false") == "true" or os.getenv(
-            "CONVENTIONAL_COMMITS_PRECOMMIT_NOEMOJI", "true"
-        ) == "false":
+        if (
+            os.getenv("CONVENTIONAL_COMMITS_PRECOMMIT_EMOJI", "false") == "true"
+            or os.getenv("CONVENTIONAL_COMMITS_PRECOMMIT_NOEMOJI", "true") == "false"
+        ):
             if commitPrefix.endswith("!") and emojies["breaking"] not in header:
                 commitEmoji = commitEmoji + " " + emojies["breaking"]
             if "(" in commitPrefix:
