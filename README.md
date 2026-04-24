@@ -2,15 +2,16 @@
 
 A `commit-msg` hook for `pre-commit`-compatible runners such as `pre-commit` and `prek`.
 
-The hook validates commit messages against a conventional-commit style and can optionally rewrite the header to:
+The hook validates commit messages against a conventional-commit style and can optionally rewrite
+the header to:
 
 - add `!` when the message contains a `BREAKING CHANGE:` footer
 - optionally append a matching emoji when emoji mode is enabled
 
 ## Hook
 
-| id | stage | description |
-| --- | --- | --- |
+| id                 | stage        | description                                                       |
+| ------------------ | ------------ | ----------------------------------------------------------------- |
 | `check-commit-msg` | `commit-msg` | Validate conventional commit headers and optionally append emojis |
 
 ## Installation
@@ -20,7 +21,7 @@ Add this repository to your `.pre-commit-config.yaml` or equivalent `prek` confi
 ```yaml
 repos:
   - repo: https://github.com/kdheepak/conventional-commits-precommit
-    rev: v0.4.0
+    rev: v0.4.1
     hooks:
       - id: check-commit-msg
 ```
@@ -31,11 +32,13 @@ Then install the `commit-msg` hook type:
 pre-commit install --hook-type commit-msg
 ```
 
-If you use `prek`, install the repository's `commit-msg` hook with the corresponding `prek` install command.
+If you use `prek`, install the repository's `commit-msg` hook with the corresponding `prek` install
+command.
 
 ## Checks
 
-The hook reads the first non-empty, non-comment line from the commit message and expects a header in this shape:
+The hook reads the first non-empty, non-comment line from the commit message and expects a header in
+this shape:
 
 ```text
 type: subject
@@ -46,7 +49,8 @@ type(scope)!: subject
 
 Supported commit types:
 
-`new`, `feat`, `fix`, `revert`, `build`, `chore`, `ci`, `docs`, `perf`, `refactor`, `style`, `test`, `wip`, `fixup`
+`new`, `feat`, `fix`, `revert`, `build`, `chore`, `ci`, `docs`, `perf`, `refactor`, `style`, `test`,
+`wip`, `fixup`
 
 Accepted examples:
 
@@ -69,7 +73,8 @@ Empty or comment-only commit messages are rejected as well.
 
 ## Breaking Changes
 
-If the commit message contains a `BREAKING CHANGE:` footer and the header does not already include `!`, the hook rewrites the header to include it.
+If the commit message contains a `BREAKING CHANGE:` footer and the header does not already include
+`!`, the hook rewrites the header to include it.
 
 Example:
 
